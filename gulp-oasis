@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-package_path = "~/.composer/vendor/oasis/gulp-oasis";
+package_path="~/.composer/vendor/oasis/gulp-oasis";
 cd $package_path;npm install >/dev/null 2>&1
 gulp --cwd --gulpfile $package_path"/"gulpfile.js $*
