@@ -16,7 +16,7 @@ composer global require "oasis/gulp-oasis"
 参数 --run compress 图片压缩  
 参数 --run atlas 生成精灵图  
 参数 --config xxxx.json 指定读取的配置文件  
-参数 --cwd 指定要读取配置的项目目录
+参数 --cwd 指定要读取配置的项目目录 不指定默认当前目录
 
 ### 如果不指定--config xxxx.json 你需要建立默认配置文件
 #### compress默认配置文件范例compress_images.json
