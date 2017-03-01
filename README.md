@@ -4,7 +4,7 @@
 安装node 建议使用稳定版本  
 https://nodejs.org  
 安装gulp  
-sudo npm install --global gulp-cli
+sudo npm install --global gulp
 
 # 第二步
 通过composer安装gulp-oasis  
