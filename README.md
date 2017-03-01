@@ -9,7 +9,9 @@ sudo npm install --global gulp-cli
 # 第二步
 通过composer安装gulp-oasis  
 composer global require "oasis/gulp-oasis"  
-请确定你已将 ~/.composer/vendor/bin 路径加到PATH 只有这样系统才能找到gulp-oasis的执行文件
+请确定你已将 ~/.composer/vendor/bin 路径加到PATH 只有这样系统才能找到gulp-oasis的执行文件  
+~/.bash_profile  
+export PATH="$PATH:~/.composer/vendor/bin"
 
 # 命令介绍  
 主命令 gulp-oasis  
