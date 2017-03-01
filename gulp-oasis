@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-dir=`S=\`readlink -f "$0"\`; dirname $S`
-cd $dir;npm install >/dev/null 2>&1
-gulp --cwd --gulpfile $dir"/"gulpfile.js $*
+package_path = "~/.composer/vendor/oasis/gulp-oasis";
+cd $package_path;npm install >/dev/null 2>&1
+gulp --cwd --gulpfile $package_path"/"gulpfile.js $*
