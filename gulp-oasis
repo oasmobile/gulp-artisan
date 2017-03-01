@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-dir=`S=\`readlink "$0"\`; dirname $S`
+dir=`S=\`readlink -f "$0"\`; dirname $S`
 cd $dir;npm install >/dev/null 2>&1
 gulp --cwd --gulpfile $dir"/"gulpfile.js $*
