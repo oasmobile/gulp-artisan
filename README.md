@@ -10,7 +10,7 @@ sudo npm install --global gulp-cli
 通过composer安装gulp-oasis  
 composer global require "oasis/gulp-oasis"
 
-命令介绍  
+# 命令介绍  
 主命令 gulp-oasis  
 参数 --run compress 图片压缩  
 参数 --run atlas 生成精灵图  
