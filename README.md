@@ -17,8 +17,9 @@ composer --global require "gulp-oasis"
 参数 --config xxxx.json 指定读取的配置文件 参数可选 默认配置文件 compress的为compress_images.json atlas的为atlas_sprites.json  
 参数 --cwd 指定要读取配置的项目目录
 
-<pre>
+
 ## 配置文件范例compress_images.json
+<pre>
 {
     "images1": {
         "input" : "images1/*",
@@ -29,7 +30,9 @@ composer --global require "gulp-oasis"
         "output": "dist/images2"
     }
 }
+</pre>
 ## 配置文件范例atlas_sprites.json
+<pre>
 {
     "buttons1": {
         "input"     : "buttons1/*",
@@ -44,3 +47,4 @@ composer --global require "gulp-oasis"
         "css_name"  : "atlas_buttons2.css"
     }
 }
+</pre>
