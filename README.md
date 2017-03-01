@@ -14,11 +14,11 @@ composer --global require "gulp-oasis"
 主命令 gulp-oasis  
 参数 --run compress 图片压缩  
 参数 --run atlas 生成精灵图  
-参数 --config xxxx.json 指定读取的配置文件 参数可选 默认配置文件 compress的为compress_images.json atlas的为atlas_sprites.json  
+参数 --config xxxx.json 指定读取的配置文件
 参数 --cwd 指定要读取配置的项目目录
 
-
-## 配置文件范例compress_images.json
+## 如果不指定--config xxxx.json 你需要建立默认配置文件
+### compress默认配置文件范例compress_images.json
 <pre>
 {
     "images1": {
@@ -31,7 +31,7 @@ composer --global require "gulp-oasis"
     }
 }
 </pre>
-## 配置文件范例atlas_sprites.json
+### atlas默认配置文件范例atlas_sprites.json
 <pre>
 {
     "buttons1": {
