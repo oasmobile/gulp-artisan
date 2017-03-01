@@ -8,7 +8,7 @@ sudo npm install --global gulp-cli
 
 # 第二步
 通过composer安装gulp-oasis  
-composer -g require "gulp-oasis"
+composer global require "oasis/gulp-oasis"
 
 命令介绍  
 主命令 gulp-oasis  
