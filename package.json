@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-image": "^2.7.5",
+    "gulp.spritesmith": "^6.3.0",
+    "vinyl-buffer": "^1.0.0"
+  },
+  "dependencies": {
+    "minimist": "^1.2.0"
+  }
+}

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+dir=`S=\`readlink "$0"\`; dirname $S`
+gulp --cwd --gulpfile $dir"/"gulpfile.js $*

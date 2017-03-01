@@ -1,0 +1,25 @@
+{
+    "name"             : "oasis/gulp-oasis",
+    "authors"          : [
+        {
+            "name": "Michael"
+        }
+    ],
+    "description"      : "Gulp for oasis",
+    "support"          : {
+        "source": "https://github.com/oasmobile/gulp-oasis/tree/master",
+        "issues": "https://github.com/oasmobile/gulp-oasis/issues"
+    },
+    "bin"              : [
+        "gulp-oasis"
+    ],
+    "minimum-stability": "stable",
+    "scripts"          : {
+        "post-install-cmd": [
+            "npm install"
+        ],
+        "post-update-cmd" : [
+            "npm install"
+        ]
+    }
+}
