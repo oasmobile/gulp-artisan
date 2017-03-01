@@ -30,7 +30,7 @@ if (argv.run === 'compress') {
         console.log('默认配置文件未找到');
         process.exit();
     }
-    gulp.task('default', ['images']);
+    gulp.task('default', ['compress']);
 }
 else if (argv.run === 'atlas') {
     checkConfigOption(argv.config);
@@ -44,7 +44,7 @@ else if (argv.run === 'atlas') {
         process.exit();
     }
 
-    gulp.task('default', ['sprites']);
+    gulp.task('default', ['atlas']);
 }
 else {
     console.log('请输入正确的指令');
@@ -52,7 +52,7 @@ else {
 }
 
 //压缩图片
-gulp.task('images', function () {
+gulp.task('compress', function () {
     for (var imageNeedCompress in configImagesJson) {
         gulp.src(configImagesJson[imageNeedCompress].input)
             .pipe(image())
@@ -61,7 +61,7 @@ gulp.task('images', function () {
 });
 
 //生成精灵图
-gulp.task('sprites', function () {
+gulp.task('atlas', function () {
     for (var imagesNeedSprite in configSpritesJson) {
         //精灵图生成命令
         var dist = configSpritesJson[imagesNeedSprite].output;
