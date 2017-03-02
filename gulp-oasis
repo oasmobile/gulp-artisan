@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
-package_path=$HOME"/.composer/vendor/oasis/gulp-oasis"
-current_path=`pwd`
-cd $package_path;npm install >/dev/null 2>&1
-cd $current_path;gulp --cwd --gulpfile $package_path"/"gulpfile.js $*
+package_path="/usr/local/lib/node_modules/gulp-oasis"
+gulp --cwd --gulpfile $package_path"/"gulpfile.js $*

@@ -1,17 +1,10 @@
 # Gulp for oasis
 
-# 第一步
 安装node 建议使用稳定版本  
 https://nodejs.org  
 安装gulp  
-sudo npm install --global gulp
-
-# 第二步
-通过composer安装gulp-oasis  
-composer global require "oasis/gulp-oasis"  
-请确定你已将 ~/.composer/vendor/bin 路径加到PATH 只有这样系统才能找到gulp-oasis的执行文件  
-~/.bash_profile  
-export PATH="$PATH:~/.composer/vendor/bin"
+sudo npm install --global gulp  
+sudo npm install --global gulp-oasis
 
 # 命令介绍  
 主命令 gulp-oasis  
