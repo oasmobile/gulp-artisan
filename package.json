@@ -1,6 +1,6 @@
 {
     "name"        : "gulp-oasis",
-    "version"     : "1.0.6",
+    "version"     : "1.0.7",
     "description" : "Gulp for oasis",
     "main"        : "gulpfile.js",
     "dependencies": {
@@ -9,7 +9,7 @@
         "gulp-image"      : "^2.7.5",
         "gulp.spritesmith": "^6.3.0",
         "vinyl-buffer"    : "^1.0.0"
-    },
+    }, 
     "bin"         : {
         "gulp-oasis": "./gulp-oasis"
     },
