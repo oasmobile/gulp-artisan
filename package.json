@@ -1,6 +1,6 @@
 {
     "name"        : "gulp-oasis",
-    "version"     : "1.0.7",
+    "version"     : "1.0.8",
     "description" : "Gulp for oasis",
     "main"        : "gulpfile.js",
     "dependencies": {
@@ -13,9 +13,9 @@
     "bin"         : {
         "gulp-oasis": "./gulp-oasis"
     },
-    "repository"  : {
+    "repository": {
         "type": "git",
-        "url" : "git://github.com/oasmobile/gulp-oasis.git"
+        "url" : "git+https://github.com/oasmobile/gulp-oasis.git"
     },
     "author"      : "Michael",
     "bugs"        : {
