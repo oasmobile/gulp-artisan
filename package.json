@@ -1,25 +1,25 @@
 {
-    "name"        : "gulp-oasis",
-    "version"     : "1.0.8",
-    "description" : "Gulp for oasis",
-    "main"        : "gulpfile.js",
-    "dependencies": {
-        "minimist"        : "^1.2.0",
-        "gulp"            : "^3.9.1",
-        "gulp-image"      : "^2.7.5",
-        "gulp.spritesmith": "^6.3.0",
-        "vinyl-buffer"    : "^1.0.0"
-    }, 
-    "bin"         : {
-        "gulp-oasis": "./gulp-oasis"
-    },
-    "repository": {
-        "type": "git",
-        "url" : "git+https://github.com/oasmobile/gulp-oasis.git"
-    },
-    "author"      : "Michael",
-    "bugs"        : {
-        "url": "https://github.com/oasmobile/gulp-oasis/issues"
-    },
-    "homepage"    : "https://github.com/oasmobile/gulp-oasis#readme"
+  "name": "gulp-oasis",
+  "version": "1.0.9",
+  "description": "Gulp for oasis",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "minimist": "^1.2.0",
+    "gulp": "^3.9.1",
+    "gulp-imagemin": "^3.1.1",
+    "gulp.spritesmith": "^6.3.0",
+    "vinyl-buffer": "^1.0.0"
+  },
+  "bin": {
+    "gulp-oasis": "./gulp-oasis"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oasmobile/gulp-oasis.git"
+  },
+  "author": "Michael",
+  "bugs": {
+    "url": "https://github.com/oasmobile/gulp-oasis/issues"
+  },
+  "homepage": "https://github.com/oasmobile/gulp-oasis#readme"
 }

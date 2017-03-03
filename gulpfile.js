@@ -1,5 +1,5 @@
 const gulp = require('gulp');
-const image = require('gulp-image');
+const imagemin = require('gulp-imagemin');
 const spritesmith = require('gulp.spritesmith');
 const buffer = require('vinyl-buffer');
 const minimist = require('minimist');
@@ -55,7 +55,7 @@ else {
 gulp.task('compress', function () {
     for (var imageNeedCompress in configImagesJson) {
         gulp.src(configImagesJson[imageNeedCompress].input)
-            .pipe(image())
+            .pipe(imagemin())
             .pipe(gulp.dest(configImagesJson[imageNeedCompress].output));
     }
 });
@@ -80,7 +80,7 @@ gulp.task('atlas', function () {
         //精灵图再次优化
         var imgStream = spriteData.img
             .pipe(buffer())
-            .pipe(image())
+            .pipe(imagemin())
             .pipe(gulp.dest(dist));
 
         //生成对应的css
