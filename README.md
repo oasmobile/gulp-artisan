@@ -17,8 +17,8 @@ sudo npm install --global gulp-oasis
 参数 --cwd 指定要读取配置的项目目录 不指定默认当前目录
 
 ### 如果不指定--config xxxx.json 你需要建立默认配置文件
-#### compress默认配置文件范例compress_images.json
 <pre>
+compress默认配置文件范例compress_images.json
 {
     "images1": {
         "input" : "images1/*",
@@ -29,9 +29,7 @@ sudo npm install --global gulp-oasis
         "output": "dist/images2"
     }
 }
-</pre>
-#### atlas默认配置文件范例atlas_sprites.json
-<pre>
+atlas默认配置文件范例atlas_sprites.json 
 {
     "buttons1": {
         "input"     : "buttons1/*",
