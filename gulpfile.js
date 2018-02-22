@@ -105,7 +105,9 @@ gulp.task('atlas', function () {
             cssName: configSpritesJson[imagesNeedSprite].css_name,
             //设置css前缀
             cssVarMap: function (sprite) {
-                sprite.name = imagesNeedSprite + '_' + sprite.name;
+                var pathArr = sprite.source_image.split('/');
+
+                sprite.name = pathArr[pathArr.length - 2] + '_' + sprite.name;
             },
             //css定制模板
             cssTemplate: __dirname + '/css_template/sprite'
