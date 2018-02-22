@@ -147,7 +147,7 @@ gulp.task('minify_js', function () {
         if (configJsJson[jsNeedMinify].concat === undefined) {
             gulp.src(configJsJson[jsNeedMinify].input)
                 .pipe(rename({suffix: '.min'}))
-                .pipe(uglify({outSourceMap: true}))
+                .pipe(uglify())
                 .pipe(gulp.dest(configJsJson[jsNeedMinify].output))
         }
         else {
