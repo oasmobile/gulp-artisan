@@ -153,7 +153,6 @@ gulp.task('minify_js', function () {
         else {
             gulp.src(configJsJson[jsNeedMinify].input)
                 .pipe(concat(configJsJson[jsNeedMinify].concat))
-                .pipe(rename({suffix: '.min'}))
                 .pipe(uglify())
                 .pipe(gulp.dest(configJsJson[jsNeedMinify].output))
         }
