@@ -80,6 +80,20 @@ else if (argv.run === 'minify_js') {
 
     gulp.task('default', ['minify_js']);
 }
+else if (argv.run === 'deploy') {
+    checkConfigOption(argv.config);
+    var configDeploy = argv.config || 'deploy.json';
+    try {
+        var configDeployPath = cwd + '/' + configDeploy;
+        var configDeployJson = JSON.parse(fs.readFileSync(configDeployPath));
+    }
+    catch (e) {
+        console.log('默认配置文件未找到');
+        process.exit();
+    }
+
+    gulp.task('default', ['deploy']);
+}
 else {
     console.log('请输入正确的指令');
     process.exit();
@@ -158,5 +172,12 @@ gulp.task('minify_js', function () {
                 .pipe(uglify())
                 .pipe(gulp.dest(configJsJson[jsNeedMinify].output))
         }
+    }
+});
+
+//代码发布
+gulp.task('deploy', function () {
+    for (var filesNeedDeploy in configDeployJson) {
+        gulp.src(filesNeedDeploy).pipe(gulp.dest(configDeployJson[filesNeedDeploy]));
     }
 });
