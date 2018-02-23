@@ -32,6 +32,7 @@ compress默认配置文件范例compress_images.json
     }
 }
 atlas默认配置文件范例atlas_sprites.json
+copy代表再拷贝一张图片到指定目录
 {
     "buttons1": {
         "input"     : "buttons1/*",
@@ -44,7 +45,7 @@ atlas默认配置文件范例atlas_sprites.json
         "output"    : "dist/buttons2",
         "image_name": "atlas_buttons2.png",
         "css_name"  : "atlas_buttons2.css",
-        "copy"      : "../public/images/index"
+        "copy"      : "../public/css"
     }
 }
 minify_css默认配置文件范例minify_css.json
