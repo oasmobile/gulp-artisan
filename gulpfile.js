@@ -80,20 +80,6 @@ else if (argv.run === 'minify_js') {
 
     gulp.task('default', ['minify_js']);
 }
-else if (argv.run === 'deploy') {
-    checkConfigOption(argv.config);
-    var configDeploy = argv.config || 'deploy.json';
-    try {
-        var configDeployPath = cwd + '/' + configDeploy;
-        var configDeployJson = JSON.parse(fs.readFileSync(configDeployPath));
-    }
-    catch (e) {
-        console.log('默认配置文件未找到');
-        process.exit();
-    }
-
-    gulp.task('default', ['deploy']);
-}
 else {
     console.log('请输入正确的指令');
     process.exit();
@@ -128,14 +114,15 @@ gulp.task('atlas', function () {
         }));
 
         //精灵图再次优化
-        var imgStream = spriteData.img
-            .pipe(buffer())
-            .pipe(imagemin())
-            .pipe(gulp.dest(dist));
+        var imgStream = spriteData.img.pipe(buffer()).pipe(imagemin());
+        imgStream.pipe(gulp.dest(dist));
+
+        if (configSpritesJson[imagesNeedSprite].copy !== undefined) {
+            imgStream.pipe(gulp.dest(configSpritesJson[imagesNeedSprite].copy));
+        }
 
         //生成对应的css
-        var cssStream = spriteData.css
-            .pipe(gulp.dest(dist));
+        spriteData.css.pipe(gulp.dest(dist));
     }
 });
 
@@ -172,12 +159,5 @@ gulp.task('minify_js', function () {
                 .pipe(uglify())
                 .pipe(gulp.dest(configJsJson[jsNeedMinify].output))
         }
-    }
-});
-
-//代码发布
-gulp.task('deploy', function () {
-    for (var filesNeedDeploy in configDeployJson) {
-        gulp.src(filesNeedDeploy).pipe(gulp.dest(configDeployJson[filesNeedDeploy]));
     }
 });

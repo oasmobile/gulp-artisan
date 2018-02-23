@@ -43,7 +43,8 @@ atlas默认配置文件范例atlas_sprites.json
         "input"     : "buttons2/*",
         "output"    : "dist/buttons2",
         "image_name": "atlas_buttons2.png",
-        "css_name"  : "atlas_buttons2.css"
+        "css_name"  : "atlas_buttons2.css",
+        "copy"      : "../public/images/index"
     }
 }
 minify_css默认配置文件范例minify_css.json
