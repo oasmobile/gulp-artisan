@@ -35,17 +35,19 @@ atlas默认配置文件范例atlas_sprites.json
 copy代表再拷贝一张图片到指定目录
 {
     "buttons1": {
-        "input"     : "buttons1/*",
-        "output"    : "dist/buttons1",
-        "image_name": "atlas_buttons1.png",
-        "css_name"  : "atlas_buttons1.css"
+        "input"       : "buttons1/*",
+        "output_image": "dist/buttons1",
+        "output_css"  : "dist/buttons1",
+        "image_name"  : "atlas_buttons1.png",
+        "css_name"    : "atlas_buttons1.css"
     },
     "buttons2": {
-        "input"     : "buttons2/*",
-        "output"    : "dist/buttons2",
-        "image_name": "atlas_buttons2.png",
-        "css_name"  : "atlas_buttons2.css",
-        "copy"      : "../public/css"
+        "input"       : "buttons1/*",
+        "output_image": "dist/buttons1",
+        "output_css"  : "dist/buttons1",
+        "image_name"  : "atlas_buttons1.png",
+        "css_name"    : "atlas_buttons1.css"
+        "copy"        : "../public/images/buttons2"
     }
 }
 minify_css默认配置文件范例minify_css.json

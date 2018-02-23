@@ -98,11 +98,13 @@ gulp.task('compress', function () {
 gulp.task('atlas', function () {
     for (var imagesNeedSprite in configSpritesJson) {
         //精灵图生成命令
-        var dist = configSpritesJson[imagesNeedSprite].output;
+        var distImage = configSpritesJson[imagesNeedSprite].output_image;
+        var distCss = configSpritesJson[imagesNeedSprite].output_css;
 
         var spriteData = gulp.src(configSpritesJson[imagesNeedSprite].input).pipe(spritesmith({
             imgName: configSpritesJson[imagesNeedSprite].image_name,
             cssName: configSpritesJson[imagesNeedSprite].css_name,
+            imgPath: distImage + '/' + this.imgName,
             //设置css前缀
             cssVarMap: function (sprite) {
                 var pathArr = sprite.source_image.split('/');
@@ -114,15 +116,15 @@ gulp.task('atlas', function () {
         }));
 
         //精灵图再次优化
-        var imgStream = spriteData.img.pipe(buffer()).pipe(imagemin());
-        imgStream.pipe(gulp.dest(dist));
+        var imageStream = spriteData.img.pipe(buffer()).pipe(imagemin());
+        imageStream.pipe(gulp.dest(distImage));
 
         if (configSpritesJson[imagesNeedSprite].copy !== undefined) {
-            imgStream.pipe(gulp.dest(configSpritesJson[imagesNeedSprite].copy));
+            imageStream.pipe(gulp.dest(configSpritesJson[imagesNeedSprite].copy));
         }
 
         //生成对应的css
-        spriteData.css.pipe(gulp.dest(dist));
+        spriteData.css.pipe(gulp.dest(distCss));
     }
 });
 
