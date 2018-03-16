@@ -97,11 +97,18 @@ gulp.task('compress', function () {
 //生成精灵图
 gulp.task('atlas', function () {
     for (var imagesNeedSprite in configSpritesJson) {
+        var image_path_prefix = '';
+
+        if(configSpritesJson[imagesNeedSprite].image_path_prefix !== undefined)
+        {
+            image_path_prefix = configSpritesJson[imagesNeedSprite].image_path_prefix;
+        }
+
         //精灵图生成命令
         var spriteData = gulp.src(configSpritesJson[imagesNeedSprite].input).pipe(spritesmith({
             imgName: configSpritesJson[imagesNeedSprite].image_name,
             cssName: configSpritesJson[imagesNeedSprite].css_name,
-            imgPath: configSpritesJson[imagesNeedSprite].image_prefix + configSpritesJson[imagesNeedSprite].image_name,
+            imgPath: image_path_prefix + configSpritesJson[imagesNeedSprite].image_name,
             //设置css前缀
             cssVarMap: function (sprite) {
                 var pathArr = sprite.source_image.split('/');

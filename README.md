@@ -38,18 +38,17 @@ copy代表再拷贝一张图片到指定目录
         "input"       : "buttons1/*",
         "output_image": "dist/buttons1",
         "output_css"  : "dist/buttons1",
-        "image_prefix": "../dist/buttons1/",
         "image_name"  : "atlas_buttons1.png",
         "css_name"    : "atlas_buttons1.css"
     },
     "buttons2": {
-        "input"       : "buttons1/*",
-        "output_image": "dist/buttons1",
-        "output_css"  : "dist/buttons1",
-        "image_prefix": "../dist/buttons1/",
-        "image_name"  : "atlas_buttons1.png",
-        "css_name"    : "atlas_buttons1.css"
-        "copy"        : "../public/images/buttons2"
+        "input"            : "buttons1/*",
+        "output_image"     : "dist/buttons1",
+        "output_css"       : "dist/buttons1",
+        "image_path_prefix": "../dist/buttons1/",
+        "image_name"       : "atlas_buttons1.png",
+        "css_name"         : "atlas_buttons1.css"
+        "copy"             : "../public/images/buttons2"
     }
 }
 minify_css默认配置文件范例minify_css.json
