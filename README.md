@@ -5,9 +5,9 @@ https://nodejs.org
 设置npm私有源  
 npm set registry https://private-npm.oasgames.com  
 安装gulp  
-npm install --global gulp  
+sudo npm install --global gulp  
 安装gulp-oasis  
-npm install --global gulp-oasis
+sudo npm install --global gulp-oasis
 
 # 命令介绍  
 主命令 gulp-oasis  
