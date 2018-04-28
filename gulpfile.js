@@ -1,7 +1,6 @@
 const fs = require('fs');
 const gulp = require('gulp');
 
-const tinypng = require('gulp-tinypng-unlimited');
 const spritesmith = require('gulp.spritesmith');
 const buffer = require('vinyl-buffer');
 const minimist = require('minimist');
@@ -11,14 +10,14 @@ const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 
+const tinypng = require('gulp-tinypng-compress');
+
 var argv = minimist(process.argv.slice(2));
 var cwd = argv.cwd;
 
 if (cwd === true || cwd === undefined) {
     cwd = process.env.INIT_CWD;
 }
-
-var tinyPngOptions = {cachePath: 'compress_cache', filterRule: /\.(png|jpg)$/i};
 
 function checkConfigOption(config) {
     if (config === true) {
@@ -95,7 +94,10 @@ gulp.task('compress', function () {
             continue;
         }
         gulp.src(configImagesJson[imageNeedCompress].input)
-            .pipe(tinypng(tinyPngOptions))
+            .pipe(tinypng({
+                key: configImagesJson.key,
+                log: true
+            }))
             .pipe(gulp.dest(configImagesJson[imageNeedCompress].output));
     }
 });

@@ -11,8 +11,8 @@ npm install --global gulp-oasis
 
 # 命令介绍  
 主命令 gulp-oasis  
-参数 --run compress 图片压缩 报错需手动重试  
-参数 --run atlas 生成精灵图 请使用压缩之后的图片  
+参数 --run compress 图片压缩  
+参数 --run atlas 生成精灵图 
 参数 --run minify_css CSS合并压缩  
 参数 --run minify_js JS合并压缩混淆  
 参数 --config xxxx.json 指定读取的配置文件  
@@ -21,17 +21,21 @@ npm install --global gulp-oasis
 ### 如果不指定--config xxxx.json 你需要建立默认配置文件
 <pre>
 compress默认配置文件范例compress_images.json
+<a href="https://tinypng.com/developers" target="_blank">请申请图片压缩服务的KEY</a>
 {
+    "key": "XXXXXXXXX",
     "images1": {
-        "input" : "images1/*",
+        "input" : "images1/*.{png.jpg}",
         "output": "dist/images1"
     },
     "images2": {
-        "input" : "images2/*",
+        "input" : "images2/*.{png.jpg}",
         "output": "dist/images2"
     }
 }
+
 atlas默认配置文件范例atlas_sprites.json
+需要合成精灵图的图片需提前压缩
 copy代表再拷贝一张图片到指定目录
 {
     "buttons1": {
