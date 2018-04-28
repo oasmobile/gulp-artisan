@@ -1,7 +1,7 @@
 const fs = require('fs');
 const gulp = require('gulp');
 
-const imagemin = require('gulp-imagemin');
+const tinypng = require('gulp-tinypng-unlimited');
 const spritesmith = require('gulp.spritesmith');
 const buffer = require('vinyl-buffer');
 const minimist = require('minimist');
@@ -18,6 +18,8 @@ if (cwd === true || cwd === undefined) {
     cwd = process.env.INIT_CWD;
 }
 
+var tinyPngOptions = {cachePath: 'compress_cache', filterRule: /\.(png|jpg)$/i};
+
 function checkConfigOption(config) {
     if (config === true) {
         console.log('请输入配置文件名');
@@ -27,10 +29,11 @@ function checkConfigOption(config) {
 
 if (argv.run === 'compress') {
     checkConfigOption(argv.config);
+    var configImagesJson = null;
     var configImages = argv.config || 'compress_images.json';
     try {
         var configImagesPath = cwd + '/' + configImages;
-        var configImagesJson = JSON.parse(fs.readFileSync(configImagesPath));
+        configImagesJson = JSON.parse(fs.readFileSync(configImagesPath));
     }
     catch (e) {
         console.log('默认配置文件未找到');
@@ -88,8 +91,11 @@ else {
 //压缩图片
 gulp.task('compress', function () {
     for (var imageNeedCompress in configImagesJson) {
+        if (imageNeedCompress == 'key') {
+            continue;
+        }
         gulp.src(configImagesJson[imageNeedCompress].input)
-            .pipe(imagemin())
+            .pipe(tinypng(tinyPngOptions))
             .pipe(gulp.dest(configImagesJson[imageNeedCompress].output));
     }
 });
@@ -97,10 +103,13 @@ gulp.task('compress', function () {
 //生成精灵图
 gulp.task('atlas', function () {
     for (var imagesNeedSprite in configSpritesJson) {
+        if (imagesNeedSprite == 'key') {
+            continue;
+        }
+
         var image_path_prefix = '';
 
-        if(configSpritesJson[imagesNeedSprite].image_path_prefix !== undefined)
-        {
+        if (configSpritesJson[imagesNeedSprite].image_path_prefix !== undefined) {
             image_path_prefix = configSpritesJson[imagesNeedSprite].image_path_prefix;
         }
 
@@ -119,8 +128,7 @@ gulp.task('atlas', function () {
             cssTemplate: __dirname + '/css_template/sprite'
         }));
 
-        //精灵图再次优化
-        var imageStream = spriteData.img.pipe(buffer()).pipe(imagemin());
+        var imageStream = spriteData.img.pipe(buffer());
         imageStream.pipe(gulp.dest(configSpritesJson[imagesNeedSprite].output_image));
 
         if (configSpritesJson[imagesNeedSprite].copy !== undefined) {

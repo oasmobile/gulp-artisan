@@ -11,8 +11,8 @@ npm install --global gulp-oasis
 
 # 命令介绍  
 主命令 gulp-oasis  
-参数 --run compress 图片压缩  
-参数 --run atlas 生成精灵图  
+参数 --run compress 图片压缩 报错需手动重试  
+参数 --run atlas 生成精灵图 请使用压缩之后的图片  
 参数 --run minify_css CSS合并压缩  
 参数 --run minify_js JS合并压缩混淆  
 参数 --config xxxx.json 指定读取的配置文件  
