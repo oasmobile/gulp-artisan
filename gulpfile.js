@@ -10,7 +10,7 @@ const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 
-const tinypng = require('gulp-tinypng-compress');
+const tinypng = require('gulp-tinypng-extended');
 
 var argv = minimist(process.argv.slice(2));
 var cwd = argv.cwd;
@@ -96,6 +96,8 @@ gulp.task('compress', function () {
         gulp.src(configImagesJson[imageNeedCompress].input)
             .pipe(tinypng({
                 key: configImagesJson.key,
+                sigFile: 'tinypng-sigs',
+                sameDest: true,
                 log: true
             }))
             .pipe(gulp.dest(configImagesJson[imageNeedCompress].output));
