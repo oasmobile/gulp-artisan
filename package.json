@@ -1,16 +1,18 @@
 {
   "name": "gulp-oasis",
-  "version": "1.2.5",
+  "version": "1.2.11",
   "description": "Gulp for oasis",
   "main": "gulpfile.js",
   "dependencies": {
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
+    "gulp-imagemin": "^4.1.0",
     "gulp-minify-css": "^1.2.4",
     "gulp-rename": "^1.2.2",
-    "gulp-tinypng-extended": "^1.5.0",
     "gulp-uglify": "^2.0.1",
     "gulp.spritesmith": "^6.3.0",
+    "imagemin-mozjpeg": "^7.0.0",
+    "imagemin-pngquant": "^5.1.0",
     "minimist": "^1.2.0",
     "vinyl-buffer": "^1.0.0"
   },

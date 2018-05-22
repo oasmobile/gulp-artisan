@@ -10,7 +10,9 @@ const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 
-const tinypng = require('gulp-tinypng-extended');
+const imagemin = require('gulp-imagemin');
+const imageminMozjpeg = require('imagemin-mozjpeg');
+const imageminPngquant = require('imagemin-pngquant');
 
 var argv = minimist(process.argv.slice(2));
 var cwd = argv.cwd;
@@ -94,11 +96,8 @@ gulp.task('compress', function () {
             continue;
         }
         gulp.src(configImagesJson[imageNeedCompress].input)
-            .pipe(tinypng({
-                key: configImagesJson.key,
-                sigFile: 'tinypng-sigs',
-                sameDest: true,
-                log: true
+            .pipe(imagemin([imagemin.gifsicle(), imageminMozjpeg(), imageminPngquant(), imagemin.svgo()], {
+                verbose: true
             }))
             .pipe(gulp.dest(configImagesJson[imageNeedCompress].output));
     }
@@ -136,7 +135,9 @@ gulp.task('atlas', function () {
         imageStream.pipe(gulp.dest(configSpritesJson[imagesNeedSprite].output_image));
 
         if (configSpritesJson[imagesNeedSprite].copy !== undefined) {
-            imageStream.pipe(gulp.dest(configSpritesJson[imagesNeedSprite].copy));
+            imageStream.pipe(imagemin([imagemin.gifsicle(), imageminMozjpeg(), imageminPngquant(), imagemin.svgo()], {
+                verbose: true
+            })).pipe(gulp.dest(configSpritesJson[imagesNeedSprite].copy));
         }
 
         //生成对应的css

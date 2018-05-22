@@ -21,20 +21,15 @@ npm install --global gulp-oasis
 ### 如果不指定--config xxxx.json 你需要建立默认配置文件
 <pre>
 compress默认配置文件范例compress_images.json
-<a href="https://tinypng.com/developers" target="_blank">申请图片压缩服务的KEY</a>
 {
-    "key": "XXXXXXXXX",
     "images1": {
-        "input" : "images1/*.{png,jpg}",
-        "output": "images1"
-    },
-    "images2": {
-        "input" : "images2/*.{png,jpg}",
+        "input" : "images2/*",
         "output": "dist/images2"
     }
 }
 atlas默认配置文件范例atlas_sprites.json
-copy代表再拷贝一张图片到指定目录
+image_path_prefix代表生成的css中图片路径的前缀
+copy代表再拷贝一张图片到指定目录并压缩
 {
     "buttons1": {
         "input"       : "buttons1/*",
@@ -47,9 +42,9 @@ copy代表再拷贝一张图片到指定目录
         "input"            : "buttons1/*",
         "output_image"     : "dist/buttons1",
         "output_css"       : "dist/buttons1",
-        "image_path_prefix": "../dist/buttons1/",
         "image_name"       : "atlas_buttons1.png",
         "css_name"         : "atlas_buttons1.css"
+        "image_path_prefix": "../dist/buttons1/",
         "copy"             : "../public/images/buttons2"
     }
 }
