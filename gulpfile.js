@@ -96,7 +96,7 @@ gulp.task('compress', function () {
             continue;
         }
         gulp.src(configImagesJson[imageNeedCompress].input)
-            .pipe(imagemin([imagemin.gifsicle(), imageminMozjpeg(), imageminPngquant(), imagemin.svgo()], {
+            .pipe(imagemin([imagemin.gifsicle(), imageminMozjpeg({quality: 90}), imageminPngquant(), imagemin.svgo()], {
                 verbose: true
             }))
             .pipe(gulp.dest(configImagesJson[imageNeedCompress].output));
@@ -135,7 +135,7 @@ gulp.task('atlas', function () {
         imageStream.pipe(gulp.dest(configSpritesJson[imagesNeedSprite].output_image));
 
         if (configSpritesJson[imagesNeedSprite].copy !== undefined) {
-            imageStream.pipe(imagemin([imagemin.gifsicle(), imageminMozjpeg(), imageminPngquant(), imagemin.svgo()], {
+            imageStream.pipe(imagemin([imagemin.gifsicle(), imageminMozjpeg({quality: 90}), imageminPngquant(), imagemin.svgo()], {
                 verbose: true
             })).pipe(gulp.dest(configSpritesJson[imagesNeedSprite].copy));
         }
