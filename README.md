@@ -81,7 +81,7 @@ image_path_prefix: path prefix in generated css file
         "image_path_prefix": "../buttons1/"
     }
 }
-sample json minify_css.json
+sample minify_css.json
 {
     "css1": {
         "input" : "css1/*",
