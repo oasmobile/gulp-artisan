@@ -12,7 +12,7 @@ npm install --global gulp-oasis
 # 命令介绍  
 主命令 gulp-oasis  
 参数 --run compress 图片压缩  
-参数 --run atlas 生成精灵图 
+参数 --run atlas 生成精灵图  
 参数 --run minify_css CSS合并压缩  
 参数 --run minify_js JS合并压缩混淆  
 参数 --config xxxx.json 指定读取的配置文件  
@@ -21,31 +21,57 @@ npm install --global gulp-oasis
 ### 如果不指定--config xxxx.json 你需要建立默认配置文件
 <pre>
 compress默认配置文件范例compress_images.json
+enable是否开启压缩 可以只拷贝不压缩
+gifsicle配置参考https://www.npmjs.com/package/imagemin-gifsicle
+mozjpeg配置参考https://www.npmjs.com/package/imagemin-mozjpeg
+pngquant配置参考https://www.npmjs.com/package/imagemin-pngquant
+svgo配置参考https://www.npmjs.com/package/imagemin-svgo
 {
     "images1": {
         "input" : "images2/*",
         "output": "dist/images2"
     }
 }
+{
+    "images1": {
+        "input"   : "images2/*",
+        "output"  : "dist/images2",
+        "enabled" : false,
+        "gifsicle": {
+            "interlaced": true
+        },
+        "mozjpeg" : {
+            "quality": 90
+        },
+        "pngquant": {
+            "quality": "60-80"
+        },
+        "svgo"    : {
+            "plugins": [
+                {
+                    "removeViewBox": false
+                }
+            ]
+        }
+    }
+}
 atlas默认配置文件范例atlas_sprites.json
 image_path_prefix代表生成的css中图片路径的前缀
-copy代表再拷贝一张图片到指定目录并压缩
 {
     "buttons1": {
         "input"       : "buttons1/*",
-        "output_image": "dist/buttons1",
-        "output_css"  : "dist/buttons1",
+        "output_image": "src/image",
+        "output_css"  : "src/css",
         "image_name"  : "atlas_buttons1.png",
         "css_name"    : "atlas_buttons1.css"
     },
     "buttons2": {
         "input"            : "buttons1/*",
-        "output_image"     : "dist/buttons1",
-        "output_css"       : "dist/buttons1",
+        "output_image"     : "src/image",
+        "output_css"       : "src/css",
         "image_name"       : "atlas_buttons1.png",
         "css_name"         : "atlas_buttons1.css"
-        "image_path_prefix": "../dist/buttons1/",
-        "copy"             : "../public/images/buttons2"
+        "image_path_prefix": "../buttons1/"
     }
 }
 minify_css默认配置文件范例minify_css.json

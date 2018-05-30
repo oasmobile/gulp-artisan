@@ -1,6 +1,6 @@
 {
   "name": "gulp-oasis",
-  "version": "1.2.31",
+  "version": "1.2.39",
   "description": "Gulp for oasis",
   "main": "gulpfile.js",
   "dependencies": {

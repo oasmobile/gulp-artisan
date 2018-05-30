@@ -37,7 +37,7 @@ if (argv.run === 'compress') {
         configImagesJson = JSON.parse(fs.readFileSync(configImagesPath));
     }
     catch (e) {
-        console.log('默认配置文件未找到');
+        console.log('默认配置文件未找到或格式错误');
         process.exit();
     }
     gulp.task('default', ['compress']);
@@ -50,7 +50,7 @@ else if (argv.run === 'atlas') {
         var configSpritesJson = JSON.parse(fs.readFileSync(configSpritesPath));
     }
     catch (e) {
-        console.log('默认配置文件未找到');
+        console.log('默认配置文件未找到或格式错误');
         process.exit();
     }
 
@@ -64,7 +64,7 @@ else if (argv.run === 'minify_css') {
         var configCssJson = JSON.parse(fs.readFileSync(configCssPath));
     }
     catch (e) {
-        console.log('默认配置文件未找到');
+        console.log('默认配置文件未找到或格式错误');
         process.exit();
     }
 
@@ -78,7 +78,7 @@ else if (argv.run === 'minify_js') {
         var configJsJson = JSON.parse(fs.readFileSync(configJsPath));
     }
     catch (e) {
-        console.log('默认配置文件未找到');
+        console.log('默认配置文件未找到或格式错误');
         process.exit();
     }
 
@@ -92,29 +92,36 @@ else {
 //压缩图片
 gulp.task('compress', function () {
     for (var imageNeedCompress in configImagesJson) {
-        if (imageNeedCompress == 'key') {
-            continue;
+        if (configCssJson[imageNeedCompress].enabled === undefined) {
+            configCssJson[imageNeedCompress].enabled = true;
         }
-        gulp.src(configImagesJson[imageNeedCompress].input)
-            .pipe(imagemin([imagemin.gifsicle(), imageminMozjpeg({quality: 90}), imageminPngquant(), imagemin.svgo()], {
-                verbose: true
-            }))
-            .pipe(gulp.dest(configImagesJson[imageNeedCompress].output));
+
+        if (configCssJson[imageNeedCompress].enabled) {
+            configImagesJson[imageNeedCompress].gifsicle = configImagesJson[imageNeedCompress].gifsicle || {};
+            configImagesJson[imageNeedCompress].mozjpeg = configImagesJson[imageNeedCompress].mozjpeg || {};
+            configImagesJson[imageNeedCompress].pngquant = configImagesJson[imageNeedCompress].pngquant || {};
+            configImagesJson[imageNeedCompress].svgo = configImagesJson[imageNeedCompress].svgo || {};
+
+            gulp.src(configImagesJson[imageNeedCompress].input)
+                .pipe(imagemin([
+                        imagemin.gifsicle(configImagesJson[imageNeedCompress].gifsicle),
+                        imageminMozjpeg(configImagesJson[imageNeedCompress].mozjpeg),
+                        imageminPngquant(configImagesJson[imageNeedCompress].pngquant),
+                        imagemin.svgo(configImagesJson[imageNeedCompress].svgo)],
+                    {verbose: true}))
+                .pipe(gulp.dest(configImagesJson[imageNeedCompress].output));
+        }
+        else {
+            gulp.src(configImagesJson[imageNeedCompress].input)
+                .pipe(gulp.dest(configImagesJson[imageNeedCompress].output));
+        }
     }
 });
 
 //生成精灵图
 gulp.task('atlas', function () {
     for (var imagesNeedSprite in configSpritesJson) {
-        if (imagesNeedSprite == 'key') {
-            continue;
-        }
-
-        var image_path_prefix = '';
-
-        if (configSpritesJson[imagesNeedSprite].image_path_prefix !== undefined) {
-            image_path_prefix = configSpritesJson[imagesNeedSprite].image_path_prefix;
-        }
+        var image_path_prefix = configSpritesJson[imagesNeedSprite].image_path_prefix || '';
 
         //精灵图生成命令
         var spriteData = gulp.src(configSpritesJson[imagesNeedSprite].input).pipe(spritesmith({
@@ -133,12 +140,6 @@ gulp.task('atlas', function () {
 
         var imageStream = spriteData.img.pipe(buffer());
         imageStream.pipe(gulp.dest(configSpritesJson[imagesNeedSprite].output_image));
-
-        if (configSpritesJson[imagesNeedSprite].copy !== undefined) {
-            imageStream.pipe(imagemin([imagemin.gifsicle(), imageminMozjpeg({quality: 90}), imageminPngquant(), imagemin.svgo()], {
-                verbose: true
-            })).pipe(gulp.dest(configSpritesJson[imagesNeedSprite].copy));
-        }
 
         //生成对应的css
         spriteData.css.pipe(gulp.dest(configSpritesJson[imagesNeedSprite].output_css));
