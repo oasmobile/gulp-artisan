@@ -1,6 +1,6 @@
-# gulp artisan
 ## What is gulp artisan?
-Gulp artisan is based on gulp,which can configured by json,it's easy to save in project and run anytime.
+Gulp artisan is a tool which can optimize webpage assets based on json configration files
+## What can gulp artisan do?
 - **Images** Compress images using gifsicle mozjpeg pngquant svgo
 - **Atlas** Generate atlas
 - **CSS** Minify css
@@ -24,9 +24,9 @@ gulp-oasis
 --config xxxx.json //specify json
 --cwd //change directory
 ```
-### Default configuration
+### Default configuration file
 ```
-compress default json compress_images.json
+sample compress_images.json
 path: images/** //recursive directory
 path: !images/a.png //ignore file
 gifsicle options [https://www.npmjs.com/package/imagemin-gifsicle]
@@ -62,7 +62,7 @@ svgo options [https://www.npmjs.com/package/imagemin-svgo]
         }
     }
 }
-atlas default json atlas_sprites.json
+sample atlas_sprites.json
 image_path_prefix: path prefix in generated css file
 {
     "buttons1": {
@@ -81,7 +81,7 @@ image_path_prefix: path prefix in generated css file
         "image_path_prefix": "../buttons1/"
     }
 }
-minify_css default json minify_css.json
+sample json minify_css.json
 {
     "css1": {
         "input" : "css1/*",
@@ -98,7 +98,7 @@ minify_css default json minify_css.json
         "concat": "css3.min.css"
     }
 }
-minify_js default json minify_js.json
+sample minify_js.json
 {
     "js1": {
         "input" : "js1/*",
