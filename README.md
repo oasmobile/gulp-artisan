@@ -16,9 +16,9 @@ npm install --global gulp-artisan
 ```
 ## Command  
 ```
-gulp-oasis  
+gulp-artisan  
 --run compress //compress images
---run atlas //generate atlas
+--run atlas //generate sprites
 --run minify_css //minify css
 --run minify_js //minify js
 --config xxxx.json //specify json
