@@ -1,25 +1,25 @@
-# Gulp for oasis
-
-安装node 请使用最新稳定版本  
+# gulp artisan
+## Install
+```
+//install node 
 https://nodejs.org  
-设置npm私有源  
-npm set registry https://private-npm.oasgames.com  
-安装gulp  
+//install gulp  
 npm install --global gulp  
-安装gulp-oasis  
-npm install --global gulp-oasis
-
-# 命令介绍  
-主命令 gulp-oasis  
-参数 --run compress 图片压缩  
-参数 --run atlas 生成精灵图  
-参数 --run minify_css CSS合并压缩  
-参数 --run minify_js JS合并压缩混淆  
-参数 --config xxxx.json 指定读取的配置文件  
-参数 --cwd 指定要读取配置的项目目录 不指定默认当前目录
-
-### 如果不指定--config xxxx.json 你需要建立默认配置文件
-<pre>
+//install gulp artisan
+npm install --global gulp-artisan
+```
+## Command  
+```
+gulp-oasis  
+--run compress //compress images
+--run atlas //generate atlas
+--run minify_css //minify css
+--run minify_js //minify js
+--config xxxx.json //specify json
+--cwd //change directory
+```
+### Default configuration
+```
 compress默认配置文件范例compress_images.json
 路径中**可以递归目录 !可以忽略文件
 enable是否开启压缩 可以只拷贝不压缩
@@ -109,4 +109,7 @@ minify_js默认配置文件范例minify_js.json
         "concat": "js3.min.js"
     }
 }
-</pre>
+```
+## License
+
+[MIT License](https://en.wikipedia.org/wiki/MIT_License)
