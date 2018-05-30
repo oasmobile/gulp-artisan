@@ -21,8 +21,8 @@ gulp-oasis
 ### Default configuration
 ```
 compress default json compress_images.json
-path: ** //recursive directory
-path: ! //ignore file
+path: images/** //recursive directory
+path: !images/a.png //ignore file
 gifsicle options [https://www.npmjs.com/package/imagemin-gifsicle]
 mozjpeg options [https://www.npmjs.com/package/imagemin-mozjpeg]
 pngquant options [https://www.npmjs.com/package/imagemin-pngquant]
