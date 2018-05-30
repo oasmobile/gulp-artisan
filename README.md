@@ -21,6 +21,7 @@ npm install --global gulp-oasis
 ### 如果不指定--config xxxx.json 你需要建立默认配置文件
 <pre>
 compress默认配置文件范例compress_images.json
+路径中**可以递归目录 !可以忽略文件
 enable是否开启压缩 可以只拷贝不压缩
 gifsicle配置参考https://www.npmjs.com/package/imagemin-gifsicle
 mozjpeg配置参考https://www.npmjs.com/package/imagemin-mozjpeg
