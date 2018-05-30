@@ -29,10 +29,10 @@ gulp-artisan
 sample compress_images.json
 path: images/** //recursive directory
 path: !images/a.png //ignore file
-gifsicle options [https://www.npmjs.com/package/imagemin-gifsicle]
-mozjpeg options [https://www.npmjs.com/package/imagemin-mozjpeg]
-pngquant options [https://www.npmjs.com/package/imagemin-pngquant]
-svgo options [https://www.npmjs.com/package/imagemin-svgo]
+gifsicle: [https://www.npmjs.com/package/imagemin-gifsicle]
+mozjpeg: [https://www.npmjs.com/package/imagemin-mozjpeg]
+pngquant: [https://www.npmjs.com/package/imagemin-pngquant]
+svgo: [https://www.npmjs.com/package/imagemin-svgo]
 {
     "images1": {
         "input" : "images2/*",
@@ -63,7 +63,7 @@ svgo options [https://www.npmjs.com/package/imagemin-svgo]
     }
 }
 sample atlas_sprites.json
-image_path_prefix: path prefix in generated css file
+image_path_prefix: image path prefix in generated css file
 {
     "buttons1": {
         "input"       : "buttons1/*",
