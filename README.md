@@ -20,13 +20,13 @@ gulp-oasis
 ```
 ### Default configuration
 ```
-compress默认配置文件范例compress_images.json
+compress default json compress_images.json
 路径中**可以递归目录 !可以忽略文件
 enable是否开启压缩 可以只拷贝不压缩
-gifsicle配置参考https://www.npmjs.com/package/imagemin-gifsicle
-mozjpeg配置参考https://www.npmjs.com/package/imagemin-mozjpeg
-pngquant配置参考https://www.npmjs.com/package/imagemin-pngquant
-svgo配置参考https://www.npmjs.com/package/imagemin-svgo
+gifsicle options [https://www.npmjs.com/package/imagemin-gifsicle]
+mozjpeg options [https://www.npmjs.com/package/imagemin-mozjpeg]
+pngquant options [https://www.npmjs.com/package/imagemin-pngquant]
+svgo options [https://www.npmjs.com/package/imagemin-svgo]
 {
     "images1": {
         "input" : "images2/*",
