@@ -1,4 +1,10 @@
 # gulp artisan
+## What is gulp artisan?
+Gulp artisan is based on gulp,which can configured by json,it's easy to save in project and run anytime.
+- **Images** Compress images using gifsicle mozjpeg pngquant svgo
+- **Atlas** Generate atlas
+- **CSS** Minify css
+- **JS** Minify js
 ## Install
 ```
 //install node 
