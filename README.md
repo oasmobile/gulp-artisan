@@ -1,10 +1,11 @@
 ## What is gulp artisan?
-Gulp artisan is a tool which can optimize webpage assets based on json configration files
+Gulp artisan is a tool which can optimize website based on json configration files
 ## What can gulp artisan do?
 - **Images** Compress images using gifsicle mozjpeg pngquant svgo
 - **Sprites** Generate Sprites
 - **CSS** Minify css
 - **JS** Minify js
+- **Console** Detect website console errors in chrome
 ## Install
 ```
 //install node 
@@ -21,6 +22,7 @@ gulp-artisan
 --run atlas //generate sprites
 --run minify_css //minify css
 --run minify_js //minify js
+--run console //detect website console errors in chrome
 --config xxxx.json //specify json
 --cwd //change directory
 ```
@@ -114,6 +116,13 @@ sample minify_js.json
         "output": "js3-minify",
         "concat": "js3.min.js"
     }
+}
+sample console.json
+{
+    "narutoen": [
+        "http://naruto.oasgames.com/en/articlelist/news",
+        "http://naruto.oasgames.com/en/strategy/gameStrategy"
+    ]
 }
 ```
 ## License
