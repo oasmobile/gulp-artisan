@@ -21,8 +21,8 @@ gulp-oasis
 ### Default configuration
 ```
 compress default json compress_images.json
-路径中**可以递归目录 !可以忽略文件
-enable是否开启压缩 可以只拷贝不压缩
+path: ** //recursive directory
+path: ! //ignore file
 gifsicle options [https://www.npmjs.com/package/imagemin-gifsicle]
 mozjpeg options [https://www.npmjs.com/package/imagemin-mozjpeg]
 pngquant options [https://www.npmjs.com/package/imagemin-pngquant]
@@ -56,8 +56,8 @@ svgo options [https://www.npmjs.com/package/imagemin-svgo]
         }
     }
 }
-atlas默认配置文件范例atlas_sprites.json
-image_path_prefix代表生成的css中图片路径的前缀
+atlas default json atlas_sprites.json
+image_path_prefix: path prefix in generated css file
 {
     "buttons1": {
         "input"       : "buttons1/*",
@@ -75,7 +75,7 @@ image_path_prefix代表生成的css中图片路径的前缀
         "image_path_prefix": "../buttons1/"
     }
 }
-minify_css默认配置文件范例minify_css.json
+minify_css default json minify_css.json
 {
     "css1": {
         "input" : "css1/*",
@@ -92,7 +92,7 @@ minify_css默认配置文件范例minify_css.json
         "concat": "css3.min.css"
     }
 }
-minify_js默认配置文件范例minify_js.json
+minify_js default json minify_js.json
 {
     "js1": {
         "input" : "js1/*",
