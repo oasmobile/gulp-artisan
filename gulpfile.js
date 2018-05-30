@@ -92,11 +92,11 @@ else {
 //压缩图片
 gulp.task('compress', function () {
     for (var imageNeedCompress in configImagesJson) {
-        if (configCssJson[imageNeedCompress].enabled === undefined) {
-            configCssJson[imageNeedCompress].enabled = true;
+        if (configImagesJson[imageNeedCompress].enabled === undefined) {
+            configImagesJson[imageNeedCompress].enabled = true;
         }
 
-        if (configCssJson[imageNeedCompress].enabled) {
+        if (configImagesJson[imageNeedCompress].enabled) {
             configImagesJson[imageNeedCompress].gifsicle = configImagesJson[imageNeedCompress].gifsicle || {};
             configImagesJson[imageNeedCompress].mozjpeg = configImagesJson[imageNeedCompress].mozjpeg || {};
             configImagesJson[imageNeedCompress].pngquant = configImagesJson[imageNeedCompress].pngquant || {};
