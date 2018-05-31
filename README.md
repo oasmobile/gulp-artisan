@@ -5,7 +5,7 @@ Gulp artisan is a tool which can optimize website based on json configration fil
 - **Sprites** Generate Sprites
 - **CSS** Minify css
 - **JS** Minify js
-- **Console** Detect website console errors in chrome
+- **Console** Collect website console messages in chrome
 ## Install
 ```
 //install node 
@@ -22,7 +22,7 @@ gulp-artisan
 --run atlas //generate sprites
 --run minify_css //minify css
 --run minify_js //minify js
---run console //detect website console errors in chrome
+--run console //collect website console messages in chrome
 --config xxxx.json //specify json
 --cwd //change directory
 ```
