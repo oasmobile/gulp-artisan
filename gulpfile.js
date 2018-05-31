@@ -231,7 +231,7 @@ async function test(driver) {
                 .then(() => driver.manage().logs().get(webdriver.logging.Type.BROWSER))
                 .then((logs) => {
                     for (let entry in logs) {
-                        console.log('[console] [' + dateTime() + '] '
+                        console.log('[' + dateTime() + '] '
                             + websiteNeedConsole
                             + '[' + url
                             + '].' + logs[entry].level.name_
