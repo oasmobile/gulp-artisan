@@ -139,31 +139,33 @@ gulp.task('compress', function () {
 
 //生成精灵图
 gulp.task('atlas', function () {
+    return sprite();
+});
+
+async function sprite() {
     for (let imagesNeedSprite in configSpritesJson) {
         let image_path_prefix = configSpritesJson[imagesNeedSprite].image_path_prefix || '';
 
         //精灵图生成命令
-        let spriteData = gulp.src(configSpritesJson[imagesNeedSprite].input).pipe(spritesmith({
+        let spriteData = await gulp.src(configSpritesJson[imagesNeedSprite].input).pipe(spritesmith({
             imgName: configSpritesJson[imagesNeedSprite].image_name,
             cssName: configSpritesJson[imagesNeedSprite].css_name,
             imgPath: image_path_prefix + configSpritesJson[imagesNeedSprite].image_name,
             //设置css前缀
             cssVarMap: function (sprite) {
-                let pathArr = sprite.source_image.split('/');
-
-                sprite.name = pathArr[pathArr.length - 2] + '_' + sprite.name;
+                sprite.name = imagesNeedSprite + '_' + sprite.name;
             },
             //css定制模板
             cssTemplate: __dirname + '/css_template/sprite'
         }));
 
-        let imageStream = spriteData.img.pipe(buffer());
-        imageStream.pipe(gulp.dest(configSpritesJson[imagesNeedSprite].output_image));
+        let imageStream = await spriteData.img.pipe(buffer());
+        await imageStream.pipe(gulp.dest(configSpritesJson[imagesNeedSprite].output_image));
 
         //生成对应的css
-        spriteData.css.pipe(gulp.dest(configSpritesJson[imagesNeedSprite].output_css));
+        await spriteData.css.pipe(gulp.dest(configSpritesJson[imagesNeedSprite].output_css));
     }
-});
+}
 
 //css处理
 gulp.task('minify_css', function () {
@@ -229,7 +231,7 @@ async function test(driver) {
                 .then(() => driver.manage().logs().get(webdriver.logging.Type.BROWSER))
                 .then((logs) => {
                     for (let entry in logs) {
-                        console.log('[' + dateTime() + '] '
+                        console.log('[console] [' + dateTime() + '] '
                             + websiteNeedConsole
                             + '[' + url
                             + '].' + logs[entry].level.name_
