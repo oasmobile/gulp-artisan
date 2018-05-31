@@ -203,7 +203,6 @@ gulp.task('minify_js', function () {
 
 //console处理
 gulp.task('console', function () {
-    let driver = null;
     let builder = new webdriver.Builder();
     let prefs = new webdriver.logging.Preferences();
 
@@ -213,29 +212,33 @@ gulp.task('console', function () {
     options.addArguments('--headless');
     options.addArguments('--disable-gpu');
 
-    driver = builder
+    let driver = builder
         .forBrowser(webdriver.Browser.CHROME)
         .setChromeOptions(options)
         .build();
 
+    return test(driver);
+});
+
+async function test(driver) {
     for (let websiteNeedConsole in configConsoleJson) {
         for (let index = 0; index < configConsoleJson[websiteNeedConsole].length; index++) {
-            driver
-                .get(configConsoleJson[websiteNeedConsole][index])
+            let url = configConsoleJson[websiteNeedConsole][index];
+            await driver
+                .get(url)
                 .then(() => driver.manage().logs().get(webdriver.logging.Type.BROWSER))
                 .then((logs) => {
                     for (let entry in logs) {
-                        if (logs[entry].level.name_ == 'SEVERE') {
-                            console.log('[' + dateTime() + '] '
-                                + websiteNeedConsole
-                                + '[' + configConsoleJson[websiteNeedConsole][index]
-                                + '].ERROR'
-                                + ': ' + logs[entry].message
-                            );
-                        }
+                        console.log('[' + dateTime() + '] '
+                            + websiteNeedConsole
+                            + '[' + url
+                            + '].' + logs[entry].level.name_
+                            + ': ' + logs[entry].message
+                        );
                     }
-                })
-                .then(() => driver.quit());
+                });
         }
     }
-});
+
+    await driver.quit();
+}
