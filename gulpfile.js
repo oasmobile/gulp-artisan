@@ -103,6 +103,20 @@ else if (argv.run === 'console') {
 
     gulp.task('default', ['console']);
 }
+else if (argv.run === 'network') {
+    checkConfigOption(argv.config);
+    let configJs = argv.config || 'network.json';
+    try {
+        let configNetworkPath = cwd + '/' + configJs;
+        var configNetworkJson = JSON.parse(fs.readFileSync(configNetworkPath));
+    }
+    catch (e) {
+        console.log('默认配置文件未找到或格式错误');
+        process.exit();
+    }
+
+    gulp.task('default', ['network']);
+}
 else {
     console.log('请输入正确的指令');
     process.exit();
@@ -219,10 +233,29 @@ gulp.task('console', function () {
         .setChromeOptions(options)
         .build();
 
-    return test(driver);
+    return driverConsole(driver);
 });
 
-async function test(driver) {
+//network处理
+gulp.task('network', function () {
+    let builder = new webdriver.Builder();
+    let prefs = new webdriver.logging.Preferences();
+
+    let options = new chrome.Options();
+    prefs.setLevel(webdriver.logging.Type.PERFORMANCE, webdriver.logging.Level.ALL);
+    options.setLoggingPrefs(prefs);
+    options.addArguments('--headless');
+    options.addArguments('--disable-gpu');
+
+    let driver = builder
+        .forBrowser(webdriver.Browser.CHROME)
+        .setChromeOptions(options)
+        .build();
+
+    return driverNetwork(driver);
+});
+
+async function driverConsole(driver) {
     for (let websiteNeedConsole in configConsoleJson) {
         for (let index = 0; index < configConsoleJson[websiteNeedConsole].length; index++) {
             let url = configConsoleJson[websiteNeedConsole][index];
@@ -243,4 +276,108 @@ async function test(driver) {
     }
 
     await driver.quit();
+}
+
+async function driverNetwork(driver) {
+    for (let websiteNeedNetwork in configNetworkJson) {
+        for (let index = 0; index < configNetworkJson[websiteNeedNetwork].length; index++) {
+            let url = configNetworkJson[websiteNeedNetwork][index];
+
+            await driver
+                .get(url)
+                .then(() => driver.manage().logs().get(webdriver.logging.Type.PERFORMANCE))
+                .then((logs) => {
+                    let requestArr = {};
+                    for (let entry in logs) {
+                        let message = JSON.parse(logs[entry].message).message;
+                        if (message.params.requestId !== undefined) {
+                            if (requestArr[message.params.requestId] === undefined) {
+                                requestArr[message.params.requestId] = [];
+                            }
+                            requestArr[message.params.requestId].push(message);
+                        }
+                        else {
+                            if (requestArr[message.params.frameId] === undefined) {
+                                requestArr[message.params.frameId] = [];
+                            }
+                            requestArr[message.params.frameId].push(message);
+                        }
+                    }
+
+                    for (let key in requestArr) {
+                        let url = '';
+                        let status = '';
+                        let type = '';
+                        let size = '0B';
+                        let startTimestamp = 0;
+                        let endTimestamp = 0;
+
+                        for (let i = 0; i < requestArr[key].length; i++) {
+                            if (requestArr[key][i].method == 'Network.requestWillBeSent') {
+                                startTimestamp = requestArr[key][i].params.timestamp;
+                            }
+                            if (requestArr[key][i].method == 'Network.responseReceived') {
+                                url = requestArr[key][i].params.response.url;
+                                status = requestArr[key][i].params.response.status;
+                                type = requestArr[key][i].params.type.toLowerCase();
+                            }
+                            if (requestArr[key][i].method == 'Network.responseReceived') {
+                                url = requestArr[key][i].params.response.url;
+                                status = requestArr[key][i].params.response.status;
+                                type = requestArr[key][i].params.type.toLowerCase();
+                            }
+                            if (requestArr[key][i].method == 'Network.loadingFinished') {
+                                endTimestamp = requestArr[key][i].params.timestamp;
+                                size = convertSize(requestArr[key][i].params.encodedDataLength);
+                            }
+                        }
+
+                        if (url != '') {
+                            console.log(endTimestamp - startTimestamp);
+                            let time = convertTime(endTimestamp - startTimestamp);
+                            console.log(url + '|' + status + '|' + type + '|' + size + '|' + time);
+                        }
+                    }
+                });
+        }
+    }
+
+    await driver.quit();
+}
+
+
+function convertSize(limit) {
+    let size = "";
+    if (limit < 1024) {
+        size = limit.toFixed(1) + "B";
+    } else if (limit < 1024 * 1024) {
+        size = (limit / 1024).toFixed(1) + "KB";
+    } else if (limit < 1024 * 1024 * 1024) {
+        size = (limit / (1024 * 1024)).toFixed(1) + "MB";
+    } else {
+        size = (limit / (1024 * 1024 * 1024)).toFixed(1) + "GB";
+    }
+
+    let len = size.indexOf("\.");
+    let dec = size.substr(len + 1, 1);
+    if (dec == "0") {
+        return size.substring(0, len) + size.substr(len + 2, 2);
+    }
+    return size;
+}
+
+function convertTime(time) {
+    let tempTime = time.toFixed(2) + 's';
+
+    if (time < 1) {
+        return tempTime = (time * 1000).toFixed(0) + 'ms';
+    }
+
+    let len = tempTime.indexOf("\.");
+    let dec = tempTime.substr(len + 1, 2);
+    if (dec == "00") {
+        return tempTime.substring(0, len) + 's';
+    }
+
+    return tempTime;
 }

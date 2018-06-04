@@ -6,14 +6,33 @@ Gulp artisan is a tool which can optimize website based on json configration fil
 - **CSS** Minify css
 - **JS** Minify js
 - **Console** Collect website console messages in chrome
-## Install
+## Install on Mac
 ```
-//install node 
-https://nodejs.org  
-//install gulp  
-npm install --global gulp  
+//environment requirements
+chrome
+//install node
+https://nodejs.org
+//install gulp
+npm install --global gulp
 //install gulp artisan
 npm install --global gulp-artisan
+```
+## Install on Linux
+```
+//environment requirements
+glibc>=2.14
+nasm
+chrome [https://www.itzgeek.com/how-tos/linux/centos-how-tos/install-google-chrome-37-on-centos-7-rhel-7.html]
+//install node
+https://nodejs.org/en/download/
+please install node using non-root user
+//install gulp
+npm install --global gulp
+//install gulp artisan
+npm install --global gulp-artisan
+//modify ~/.bashrc using non-root user
+export PATH=$PATH:~/node-v8.11.2-linux-x64/bin
+export GULP_ARTISAN_PACKAGE_PATH=~/node-v8.11.2-linux-x64/lib/node_modules/gulp-artisan
 ```
 ## Command  
 ```
