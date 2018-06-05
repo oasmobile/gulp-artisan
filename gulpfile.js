@@ -251,6 +251,9 @@ async function driverConsole() {
                 .then(() => driver.manage().logs().get(webdriver.logging.Type.BROWSER))
                 .then((logs) => {
                     for (let entry in logs) {
+                        if (logs[entry].level.name_ == 'SEVERE') {
+                            logs[entry].level.name_ = 'ERROR';
+                        }
                         console.log('[' + dateTime() + '] '
                             + websiteNeedConsole
                             + '[' + url
@@ -312,13 +315,13 @@ async function driverNetwork() {
                             let endTimestamp = 0;
 
                             for (let i = 0; i < requestArr[key].length; i++) {
-                                if (requestArr[key][i].method == 'Network.requestWillBeSent') {
-                                    startTimestamp = requestArr[key][i].params.timestamp;
-                                }
                                 if (requestArr[key][i].method == 'Network.responseReceived') {
                                     url = requestArr[key][i].params.response.url;
                                     status = requestArr[key][i].params.response.status;
                                     type = requestArr[key][i].params.type.toLowerCase();
+                                    if (requestArr[key][i].params.response.timing !== undefined) {
+                                        startTimestamp = requestArr[key][i].params.response.timing.requestTime;
+                                    }
                                 }
                                 if (requestArr[key][i].method == 'Network.loadingFinished') {
                                     rawSize = requestArr[key][i].params.encodedDataLength;

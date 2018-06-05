@@ -156,7 +156,7 @@ sample network.json
         "https://oasgames.com/pc/zh/home.html"
     ],
     "size"    : 500,
-    "time"    : 3
+    "time"    : 1
 }
 ```
 ## License
