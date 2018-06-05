@@ -333,11 +333,11 @@ async function driverNetwork() {
                                 let rawTime = endTimestamp - startTimestamp;
                                 let time = convertTime(rawTime);
 
-                                if (rawSize > configNetworkJson.size * 1024) {
+                                if (configNetworkJson.size != undefined && rawSize > configNetworkJson.size * 1024) {
                                     big = ' [BIG]';
                                 }
 
-                                if (rawTime > configNetworkJson.time) {
+                                if (configNetworkJson.time != undefined && rawTime > configNetworkJson.time) {
                                     slow = ' [SLOW]';
                                 }
 
