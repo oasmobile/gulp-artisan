@@ -141,7 +141,21 @@ sample console.json
     "narutoen": [
         "http://naruto.oasgames.com/en/articlelist/news",
         "http://naruto.oasgames.com/en/strategy/gameStrategy"
+    ],
+    "tr"      : [
+        "https://tr.oasgames.com"
     ]
+}
+sample network.json
+{
+    "narutoen": [
+        "https://naruto.oasgames.com/en/"
+    ],
+    "oasgames": [
+        "https://oasgames.com/pc/zh/home.html"
+    ],
+    "size"    : 500,
+    "time"    : 3
 }
 ```
 ## License

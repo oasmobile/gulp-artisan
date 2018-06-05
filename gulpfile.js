@@ -219,46 +219,33 @@ gulp.task('minify_js', function () {
 
 //console处理
 gulp.task('console', function () {
-    let builder = new webdriver.Builder();
-    let prefs = new webdriver.logging.Preferences();
-
-    let options = new chrome.Options();
-    prefs.setLevel(webdriver.logging.Type.BROWSER, webdriver.logging.Level.ALL);
-    options.setLoggingPrefs(prefs);
-    options.addArguments('--headless');
-    options.addArguments('--disable-gpu');
-
-    let driver = builder
-        .forBrowser(webdriver.Browser.CHROME)
-        .setChromeOptions(options)
-        .build();
-
-    return driverConsole(driver);
+    return driverConsole();
 });
 
 //network处理
 gulp.task('network', function () {
-    let builder = new webdriver.Builder();
-    let prefs = new webdriver.logging.Preferences();
-
-    let options = new chrome.Options();
-    prefs.setLevel(webdriver.logging.Type.PERFORMANCE, webdriver.logging.Level.ALL);
-    options.setLoggingPrefs(prefs);
-    options.addArguments('--headless');
-    options.addArguments('--disable-gpu');
-
-    let driver = builder
-        .forBrowser(webdriver.Browser.CHROME)
-        .setChromeOptions(options)
-        .build();
-
-    return driverNetwork(driver);
+    return driverNetwork();
 });
 
-async function driverConsole(driver) {
+async function driverConsole() {
     for (let websiteNeedConsole in configConsoleJson) {
         for (let index = 0; index < configConsoleJson[websiteNeedConsole].length; index++) {
             let url = configConsoleJson[websiteNeedConsole][index];
+
+            let builder = new webdriver.Builder();
+            let prefs = new webdriver.logging.Preferences();
+
+            let options = new chrome.Options();
+            prefs.setLevel(webdriver.logging.Type.BROWSER, webdriver.logging.Level.ALL);
+            options.setLoggingPrefs(prefs);
+            options.addArguments('--headless');
+            options.addArguments('--disable-gpu');
+
+            let driver = builder
+                .forBrowser(webdriver.Browser.CHROME)
+                .setChromeOptions(options)
+                .build();
+
             await driver
                 .get(url)
                 .then(() => driver.manage().logs().get(webdriver.logging.Type.BROWSER))
@@ -272,77 +259,105 @@ async function driverConsole(driver) {
                         );
                     }
                 });
+
+            await driver.quit();
         }
     }
 
-    await driver.quit();
+
 }
 
-async function driverNetwork(driver) {
+async function driverNetwork() {
     for (let websiteNeedNetwork in configNetworkJson) {
         for (let index = 0; index < configNetworkJson[websiteNeedNetwork].length; index++) {
-            let url = configNetworkJson[websiteNeedNetwork][index];
+            let loadUrl = configNetworkJson[websiteNeedNetwork][index];
+
+            let builder = new webdriver.Builder();
+            let prefs = new webdriver.logging.Preferences();
+
+            let options = new chrome.Options();
+            prefs.setLevel(webdriver.logging.Type.PERFORMANCE, webdriver.logging.Level.ALL);
+            options.setLoggingPrefs(prefs);
+            options.addArguments('--headless');
+            options.addArguments('--disable-gpu');
+
+            let driver = builder
+                .forBrowser(webdriver.Browser.CHROME)
+                .setChromeOptions(options)
+                .build();
 
             await driver
-                .get(url)
+                .get(loadUrl)
                 .then(() => driver.manage().logs().get(webdriver.logging.Type.PERFORMANCE))
                 .then((logs) => {
-                    let requestArr = {};
-                    for (let entry in logs) {
-                        let message = JSON.parse(logs[entry].message).message;
-                        if (message.params.requestId !== undefined) {
-                            if (requestArr[message.params.requestId] === undefined) {
-                                requestArr[message.params.requestId] = [];
+                    try {
+                        let requestArr = {};
+                        for (let entry in logs) {
+                            let message = JSON.parse(logs[entry].message).message;
+                            if (message.params.requestId !== undefined) {
+                                if (requestArr[message.params.requestId] === undefined) {
+                                    requestArr[message.params.requestId] = [];
+                                }
+                                requestArr[message.params.requestId].push(message);
                             }
-                            requestArr[message.params.requestId].push(message);
                         }
-                        else {
-                            if (requestArr[message.params.frameId] === undefined) {
-                                requestArr[message.params.frameId] = [];
+
+                        for (let key in requestArr) {
+                            let url = '';
+                            let status = '';
+                            let type = '';
+                            let rawSize = 0;
+                            let size = '0B';
+                            let startTimestamp = 0;
+                            let endTimestamp = 0;
+
+                            for (let i = 0; i < requestArr[key].length; i++) {
+                                if (requestArr[key][i].method == 'Network.requestWillBeSent') {
+                                    startTimestamp = requestArr[key][i].params.timestamp;
+                                }
+                                if (requestArr[key][i].method == 'Network.responseReceived') {
+                                    url = requestArr[key][i].params.response.url;
+                                    status = requestArr[key][i].params.response.status;
+                                    type = requestArr[key][i].params.type.toLowerCase();
+                                }
+                                if (requestArr[key][i].method == 'Network.loadingFinished') {
+                                    rawSize = requestArr[key][i].params.encodedDataLength;
+                                    size = convertSize(rawSize);
+                                    endTimestamp = requestArr[key][i].params.timestamp;
+                                }
                             }
-                            requestArr[message.params.frameId].push(message);
+
+                            if (url != '' && !url.match(/data:/) && type != 'media') {
+                                let big = '';
+                                let slow = '';
+                                let rawTime = endTimestamp - startTimestamp;
+                                let time = convertTime(rawTime);
+
+                                if (rawSize > configNetworkJson.size * 1024) {
+                                    big = ' [BIG]';
+                                }
+
+                                if (rawTime > configNetworkJson.time) {
+                                    slow = ' [SLOW]';
+                                }
+
+                                console.log('[' + dateTime() + '] '
+                                    + websiteNeedNetwork
+                                    + '[' + loadUrl + ']'
+                                    + ': ' + url + '|' + status + '|' + type + '|' + size + '|' + time + big + slow);
+                            }
                         }
                     }
-
-                    for (let key in requestArr) {
-                        let url = '';
-                        let status = '';
-                        let type = '';
-                        let size = '0B';
-                        let startTimestamp = 0;
-                        let endTimestamp = 0;
-
-                        for (let i = 0; i < requestArr[key].length; i++) {
-                            if (requestArr[key][i].method == 'Network.requestWillBeSent') {
-                                startTimestamp = requestArr[key][i].params.timestamp;
-                            }
-                            if (requestArr[key][i].method == 'Network.responseReceived') {
-                                url = requestArr[key][i].params.response.url;
-                                status = requestArr[key][i].params.response.status;
-                                type = requestArr[key][i].params.type.toLowerCase();
-                            }
-                            if (requestArr[key][i].method == 'Network.responseReceived') {
-                                url = requestArr[key][i].params.response.url;
-                                status = requestArr[key][i].params.response.status;
-                                type = requestArr[key][i].params.type.toLowerCase();
-                            }
-                            if (requestArr[key][i].method == 'Network.loadingFinished') {
-                                endTimestamp = requestArr[key][i].params.timestamp;
-                                size = convertSize(requestArr[key][i].params.encodedDataLength);
-                            }
-                        }
-
-                        if (url != '') {
-                            console.log(endTimestamp - startTimestamp);
-                            let time = convertTime(endTimestamp - startTimestamp);
-                            console.log(url + '|' + status + '|' + type + '|' + size + '|' + time);
-                        }
+                    catch (e) {
+                        console.error(e)
                     }
                 });
+
+            await driver.quit();
         }
     }
 
-    await driver.quit();
+
 }
 
 
