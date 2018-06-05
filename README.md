@@ -6,6 +6,7 @@ Gulp artisan is a tool which can optimize website based on json configration fil
 - **CSS** Minify css
 - **JS** Minify js
 - **Console** Collect website console messages in chrome
+- **Network** Collect website performance log in chrome
 ## Install on Mac
 ```
 //environment requirements
