@@ -236,7 +236,7 @@ async function driverConsole() {
             let prefs = new webdriver.logging.Preferences();
 
             let options = new chrome.Options();
-            prefs.setLevel(webdriver.logging.Type.BROWSER, webdriver.logging.Level.ALL);
+            prefs.setLevel(webdriver.logging.Type.BROWSER, webdriver.logging.Level.WARNING);
             options.setLoggingPrefs(prefs);
             options.addArguments('--headless');
             options.addArguments('--disable-gpu');
@@ -381,6 +381,7 @@ function convertSize(limit) {
     if (dec == "0") {
         return size.substring(0, len) + size.substr(len + 2, 2);
     }
+
     return size;
 }
 
