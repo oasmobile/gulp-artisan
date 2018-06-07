@@ -1,9 +1,10 @@
 {
     "name": "gulp-artisan",
-    "version": "1.5.2",
+    "version": "1.5.3",
     "description": "gulp artisan",
     "main": "gulpfile.js",
     "dependencies": {
+        "chalk": "^2.4.1",
         "chromedriver": "^2.38.3",
         "date-time": "^2.1.0",
         "gulp": "^3.9.1",

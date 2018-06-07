@@ -20,6 +20,8 @@ const webdriver = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 const dateTime = require('date-time');
 
+const chalk = require('chalk');
+
 let argv = minimist(process.argv.slice(2));
 let cwd = argv.cwd;
 
@@ -29,7 +31,7 @@ if (cwd === true || cwd === undefined) {
 
 function checkConfigOption(config) {
     if (config === true) {
-        console.log('请输入配置文件名');
+        console.log(chalk.red('请输入配置文件名'));
         process.exit();
     }
 }
@@ -42,7 +44,7 @@ if (argv.run === 'compress') {
         var configImagesJson = JSON.parse(fs.readFileSync(configImagesPath));
     }
     catch (e) {
-        console.log('默认配置文件未找到或格式错误');
+        console.log(chalk.red('默认配置文件未找到或格式错误'));
         process.exit();
     }
     gulp.task('default', ['compress']);
@@ -55,7 +57,7 @@ else if (argv.run === 'atlas') {
         var configSpritesJson = JSON.parse(fs.readFileSync(configSpritesPath));
     }
     catch (e) {
-        console.log('默认配置文件未找到或格式错误');
+        console.log(chalk.red('默认配置文件未找到或格式错误'));
         process.exit();
     }
 
@@ -69,7 +71,7 @@ else if (argv.run === 'minify_css') {
         var configCssJson = JSON.parse(fs.readFileSync(configCssPath));
     }
     catch (e) {
-        console.log('默认配置文件未找到或格式错误');
+        console.log(chalk.red('默认配置文件未找到或格式错误'));
         process.exit();
     }
 
@@ -83,7 +85,7 @@ else if (argv.run === 'minify_js') {
         var configJsJson = JSON.parse(fs.readFileSync(configJsPath));
     }
     catch (e) {
-        console.log('默认配置文件未找到或格式错误');
+        console.log(chalk.red('默认配置文件未找到或格式错误'));
         process.exit();
     }
 
@@ -97,7 +99,7 @@ else if (argv.run === 'console') {
         var configConsoleJson = JSON.parse(fs.readFileSync(configConsolePath));
     }
     catch (e) {
-        console.log('默认配置文件未找到或格式错误');
+        console.log(chalk.red('默认配置文件未找到或格式错误'));
         process.exit();
     }
 
@@ -111,14 +113,14 @@ else if (argv.run === 'network') {
         var configNetworkJson = JSON.parse(fs.readFileSync(configNetworkPath));
     }
     catch (e) {
-        console.log('默认配置文件未找到或格式错误');
+        console.log(chalk.red('默认配置文件未找到或格式错误'));
         process.exit();
     }
 
     gulp.task('default', ['network']);
 }
 else {
-    console.log('请输入正确的指令');
+    console.log(chalk.red('请输入正确的指令'));
     process.exit();
 }
 
@@ -254,10 +256,11 @@ async function driverConsole() {
                         if (logs[entry].level.name_ == 'SEVERE') {
                             logs[entry].level.name_ = 'ERROR';
                         }
+
                         console.log('[' + dateTime() + '] '
                             + websiteNeedConsole
                             + '[' + url
-                            + '].' + logs[entry].level.name_
+                            + '].' + chalk.red(logs[entry].level.name_)
                             + ': ' + logs[entry].message
                         );
                     }
@@ -266,8 +269,6 @@ async function driverConsole() {
             await driver.quit();
         }
     }
-
-
 }
 
 async function driverNetwork() {
@@ -337,17 +338,18 @@ async function driverNetwork() {
                                 let time = convertTime(rawTime);
 
                                 if (configNetworkJson.size != undefined && rawSize > configNetworkJson.size * 1024) {
-                                    big = ' [BIG]';
+                                    big = ' ' + chalk.red('[BIG]');
                                 }
 
                                 if (configNetworkJson.time != undefined && rawTime > configNetworkJson.time) {
-                                    slow = ' [SLOW]';
+                                    slow = ' ' + chalk.red('[SLOW]');
                                 }
 
                                 console.log('[' + dateTime() + '] '
                                     + websiteNeedNetwork
                                     + '[' + loadUrl + ']'
                                     + ': ' + url + '|' + status + '|' + type + '|' + size + '|' + time + big + slow);
+
                             }
                         }
                     }
@@ -359,10 +361,7 @@ async function driverNetwork() {
             await driver.quit();
         }
     }
-
-
 }
-
 
 function convertSize(limit) {
     let size = "";
