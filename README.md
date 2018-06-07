@@ -42,7 +42,8 @@ gulp-artisan
 --run atlas //generate sprites
 --run minify_css //minify css
 --run minify_js //minify js
---run console //collect website console messages in chrome
+--run console //collect console warnings/errors in chrome
+--run network //collect network performance inforamtion in chrome
 --config xxxx.json //specify json
 --cwd //change directory
 ```
