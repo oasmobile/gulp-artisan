@@ -231,6 +231,10 @@ gulp.task('network', function () {
 
 async function driverConsole() {
     for (let websiteNeedConsole in configConsoleJson) {
+        if (websiteNeedConsole === 'user_agent') {
+            continue;
+        }
+
         for (let index = 0; index < configConsoleJson[websiteNeedConsole].length; index++) {
             let url = configConsoleJson[websiteNeedConsole][index];
 
@@ -242,6 +246,10 @@ async function driverConsole() {
             options.setLoggingPrefs(prefs);
             options.addArguments('--headless');
             options.addArguments('--disable-gpu');
+
+            if (configConsoleJson.user_agent !== undefined) {
+                options.addArguments('--user-agent=' + configConsoleJson.user_agent);
+            }
 
             let driver = builder
                 .forBrowser(webdriver.Browser.CHROME)
@@ -273,6 +281,10 @@ async function driverConsole() {
 
 async function driverNetwork() {
     for (let websiteNeedNetwork in configNetworkJson) {
+        if (websiteNeedNetwork === 'size' || websiteNeedNetwork === 'time' || websiteNeedNetwork === 'user_agent') {
+            continue;
+        }
+
         for (let index = 0; index < configNetworkJson[websiteNeedNetwork].length; index++) {
             let loadUrl = configNetworkJson[websiteNeedNetwork][index];
 
@@ -284,6 +296,10 @@ async function driverNetwork() {
             options.setLoggingPrefs(prefs);
             options.addArguments('--headless');
             options.addArguments('--disable-gpu');
+
+            if (configNetworkJson.user_agent !== undefined) {
+                options.addArguments('--user-agent=' + configNetworkJson.user_agent);
+            }
 
             let driver = builder
                 .forBrowser(webdriver.Browser.CHROME)

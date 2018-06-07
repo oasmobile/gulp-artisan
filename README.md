@@ -140,24 +140,26 @@ sample minify_js.json
 }
 sample console.json
 {
-    "narutoen": [
+    "narutoen"  : [
         "http://naruto.oasgames.com/en/articlelist/news",
         "http://naruto.oasgames.com/en/strategy/gameStrategy"
     ],
-    "tr"      : [
+    "tr"        : [
         "https://tr.oasgames.com"
-    ]
+    ],
+    "user_agent": "iphone"
 }
 sample network.json
 {
-    "narutoen": [
+    "narutoen"  : [
         "https://naruto.oasgames.com/en/"
     ],
-    "oasgames": [
+    "oasgames"  : [
         "https://oasgames.com/pc/zh/home.html"
     ],
-    "size"    : 500,
-    "time"    : 1.5
+    "size"      : 500,
+    "time"      : 1.5,
+    "user_agent": "iphone"
 }
 ```
 ## License
