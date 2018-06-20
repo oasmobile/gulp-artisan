@@ -1,6 +1,6 @@
 {
     "name": "gulp-artisan",
-    "version": "1.5.4",
+    "version": "1.5.5",
     "description": "gulp artisan",
     "main": "gulpfile.js",
     "dependencies": {

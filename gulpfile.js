@@ -31,7 +31,7 @@ if (cwd === true || cwd === undefined) {
 
 function checkConfigOption(config) {
     if (config === true) {
-        console.log(chalk.red('请输入配置文件名'));
+        console.log(chalk.red('Config file undefined!'));
         process.exit();
     }
 }
@@ -44,7 +44,7 @@ if (argv.run === 'compress') {
         var configImagesJson = JSON.parse(fs.readFileSync(configImagesPath));
     }
     catch (e) {
-        console.log(chalk.red('默认配置文件未找到或格式错误'));
+        console.log(chalk.red('JSON error!'));
         process.exit();
     }
     gulp.task('default', ['compress']);
@@ -57,7 +57,7 @@ else if (argv.run === 'atlas') {
         var configSpritesJson = JSON.parse(fs.readFileSync(configSpritesPath));
     }
     catch (e) {
-        console.log(chalk.red('默认配置文件未找到或格式错误'));
+        console.log(chalk.red('JSON error!'));
         process.exit();
     }
 
@@ -71,7 +71,7 @@ else if (argv.run === 'minify_css') {
         var configCssJson = JSON.parse(fs.readFileSync(configCssPath));
     }
     catch (e) {
-        console.log(chalk.red('默认配置文件未找到或格式错误'));
+        console.log(chalk.red('JSON error!'));
         process.exit();
     }
 
@@ -85,7 +85,7 @@ else if (argv.run === 'minify_js') {
         var configJsJson = JSON.parse(fs.readFileSync(configJsPath));
     }
     catch (e) {
-        console.log(chalk.red('默认配置文件未找到或格式错误'));
+        console.log(chalk.red('JSON error!'));
         process.exit();
     }
 
@@ -99,7 +99,7 @@ else if (argv.run === 'console') {
         var configConsoleJson = JSON.parse(fs.readFileSync(configConsolePath));
     }
     catch (e) {
-        console.log(chalk.red('默认配置文件未找到或格式错误'));
+        console.log(chalk.red('JSON error!'));
         process.exit();
     }
 
@@ -113,14 +113,14 @@ else if (argv.run === 'network') {
         var configNetworkJson = JSON.parse(fs.readFileSync(configNetworkPath));
     }
     catch (e) {
-        console.log(chalk.red('默认配置文件未找到或格式错误'));
+        console.log(chalk.red('JSON error!'));
         process.exit();
     }
 
     gulp.task('default', ['network']);
 }
 else {
-    console.log(chalk.red('请输入正确的指令'));
+    console.log(chalk.red('Bad command!'));
     process.exit();
 }
 
