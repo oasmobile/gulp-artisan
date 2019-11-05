@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
+path=`pwd`
 package_path="/usr/local/lib/node_modules/gulp-artisan"
 
 if [ $GULP_ARTISAN_PACKAGE_PATH ];then
 package_path=$GULP_ARTISAN_PACKAGE_PATH
 fi
 
-gulp --silent --cwd --gulpfile $package_path"/"gulpfile.js $*
+gulp --silent --cwd "$path" --gulpfile $package_path"/"gulpfile.js $*
